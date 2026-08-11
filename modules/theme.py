@@ -346,6 +346,59 @@ CUSTOM_CSS = """
     color: #e5e7eb;
     font-weight: 700;
 }
+
+/* ================= 13. Perbaikan kontras: dropdown, input, kotak info ================= */
+/* Selectbox / multiselect tertutup */
+[data-baseweb="select"] > div {
+    background-color: #14172a !important;
+    color: #e5e7eb !important;
+    border-color: rgba(168, 85, 247, 0.35) !important;
+}
+[data-baseweb="select"] span, [data-baseweb="select"] div {
+    color: #e5e7eb !important;
+}
+/* Dropdown menu (opsi) saat dibuka -- sering dirender di luar container utama */
+[data-baseweb="popover"] {
+    background-color: #14172a !important;
+}
+[data-baseweb="popover"] li, [data-baseweb="menu"] li {
+    background-color: #14172a !important;
+    color: #e5e7eb !important;
+}
+[data-baseweb="popover"] li:hover, [data-baseweb="menu"] li:hover {
+    background-color: rgba(168, 85, 247, 0.25) !important;
+}
+
+/* Text input & text area */
+.stTextInput input, .stTextArea textarea, .stNumberInput input {
+    background-color: #14172a !important;
+    color: #e5e7eb !important;
+    border-color: rgba(168, 85, 247, 0.3) !important;
+}
+
+/* Kotak st.info / st.warning / st.error / st.success -- pastikan teks selalu terang */
+[data-testid="stAlert"] p, [data-testid="stAlert"] div, [data-testid="stAlert"] span {
+    color: #f3f4f6 !important;
+}
+[data-testid="stAlertContentInfo"] { background-color: rgba(77, 216, 255, 0.12) !important; }
+[data-testid="stAlertContentWarning"] { background-color: rgba(250, 204, 21, 0.12) !important; }
+[data-testid="stAlertContentError"] { background-color: rgba(248, 113, 113, 0.12) !important; }
+[data-testid="stAlertContentSuccess"] { background-color: rgba(74, 222, 128, 0.12) !important; }
+
+/* Metric label & value */
+[data-testid="stMetricLabel"], [data-testid="stMetricValue"] {
+    color: #e5e7eb !important;
+}
+
+/* Expander header */
+[data-testid="stExpander"] summary {
+    color: #e5e7eb !important;
+}
+
+/* Radio & checkbox label */
+.stRadio label, .stCheckbox label {
+    color: #e5e7eb !important;
+}
 </style>
 """
 
