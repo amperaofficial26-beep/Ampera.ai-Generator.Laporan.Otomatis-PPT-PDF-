@@ -399,6 +399,56 @@ CUSTOM_CSS = """
 .stRadio label, .stCheckbox label {
     color: #e5e7eb !important;
 }
+
+/* ================= 14. Kontras menyeluruh: heading & teks umum ================= */
+/* Semua heading section (st.header, st.subheader, st.markdown ###, dll) */
+h1, h2, h3, h4, h5, h6,
+[data-testid="stHeader"] h1, [data-testid="stHeadingWithActionElements"] {
+    color: #f3f4f6 !important;
+    opacity: 1 !important;
+}
+/* Judul neon tetap pakai warna gradiennya sendiri, jangan ketimpa aturan di atas */
+.neon-title {
+    color: unset !important;
+}
+
+/* Paragraf, list, span di dalam markdown */
+[data-testid="stMarkdownContainer"] p,
+[data-testid="stMarkdownContainer"] li,
+[data-testid="stMarkdownContainer"] span,
+[data-testid="stMarkdownContainer"] strong {
+    color: #e5e7eb !important;
+}
+
+/* Caption (st.caption) -- abu-abu terang, bukan gelap */
+[data-testid="stCaptionContainer"], [data-testid="stCaptionContainer"] p, small {
+    color: #9ca3af !important;
+    opacity: 1 !important;
+}
+
+/* Label widget (di atas input/selectbox/radio/dll) */
+[data-testid="stWidgetLabel"] p, [data-testid="stWidgetLabel"] label {
+    color: #e5e7eb !important;
+}
+
+/* File uploader teks */
+[data-testid="stFileUploaderDropzoneInstructions"] span,
+[data-testid="stFileUploaderDropzoneInstructions"] small {
+    color: #d1d5db !important;
+}
+
+/* Tab label */
+[data-testid="stTabs"] button p {
+    color: #d1d5db !important;
+}
+[data-testid="stTabs"] button[aria-selected="true"] p {
+    color: #4dd8ff !important;
+}
+
+/* Dataframe/table teks */
+[data-testid="stDataFrame"] * {
+    color: #e5e7eb !important;
+}
 </style>
 """
 
