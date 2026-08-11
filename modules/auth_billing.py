@@ -26,14 +26,24 @@ def login_gate():
     if st.session_state.get("logged_in"):
         return True
 
-    st.title("🔐 Login")
     with st.form("login_form"):
+        st.markdown(
+            '<div style="text-align:center; margin-bottom:1.2rem;">'
+            '<div class="neon-title" style="font-size:1.8rem;">Ampera.AI</div>'
+            '<div style="color:#9ca3af; font-size:0.85rem;">Masuk untuk melanjutkan ke Generator Laporan Otomatis</div>'
+            '</div>',
+            unsafe_allow_html=True,
+        )
         username = st.text_input("Username")
         password = st.text_input("Password", type="password")
         submitted = st.form_submit_button("Masuk")
 
     if submitted:
-        if check_login(username, password):
+        with st.spinner("Memverifikasi akun..."):
+            import time
+            time.sleep(0.6)  # jeda kecil murni biar animasi loading kelihatan, bukan simulasi proses berat
+            valid = check_login(username, password)
+        if valid:
             st.session_state["logged_in"] = True
             st.session_state["show_login_transition"] = True
             st.session_state["username"] = username
