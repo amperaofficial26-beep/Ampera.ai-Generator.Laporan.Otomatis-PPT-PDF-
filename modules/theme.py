@@ -146,6 +146,206 @@ CUSTOM_CSS = """
     box-shadow: 0 6px 20px rgba(168, 85, 247, 0.45), 0 0 12px rgba(77, 216, 255, 0.35);
     border-color: #4dd8ff !important;
 }
+
+/* ================= 9. Kartu profil sidebar ================= */
+@keyframes avatarPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.45); }
+    50%      { box-shadow: 0 0 0 8px rgba(168, 85, 247, 0); }
+}
+.profile-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(168,85,247,0.15), rgba(77,216,255,0.08));
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    margin-bottom: 0.7rem;
+}
+.profile-avatar {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #a855f7, #4dd8ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 800;
+    font-size: 1.1rem;
+    animation: avatarPulse 2.5s infinite;
+}
+.profile-info .profile-name {
+    font-weight: 700;
+    color: #f3f4f6;
+    font-size: 0.95rem;
+    line-height: 1.2;
+}
+.profile-info .profile-role {
+    font-size: 0.72rem;
+    color: #9ca3af;
+}
+.version-badge {
+    display: inline-block;
+    margin-top: 3px;
+    padding: 1px 8px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    border-radius: 999px;
+    background: rgba(77, 216, 255, 0.15);
+    color: #4dd8ff;
+    border: 1px solid rgba(77, 216, 255, 0.35);
+}
+
+/* ================= 10. Kartu promosi premium sidebar ================= */
+@keyframes shimmer {
+    0%   { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+.premium-promo-card {
+    position: relative;
+    padding: 14px 16px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #241a3d 0%, #1a1030 100%);
+    border: 1px solid rgba(250, 204, 21, 0.4);
+    margin-bottom: 0.8rem;
+    overflow: hidden;
+}
+.premium-promo-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(120deg, transparent 30%, rgba(250,204,21,0.12) 50%, transparent 70%);
+    background-size: 200% 100%;
+    animation: shimmer 3.5s infinite;
+}
+.premium-promo-card .promo-title {
+    font-weight: 800;
+    color: #facc15;
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+    position: relative;
+}
+.premium-promo-card ul {
+    margin: 0;
+    padding-left: 18px;
+    position: relative;
+}
+.premium-promo-card li {
+    font-size: 0.75rem;
+    color: #d1d5db;
+    margin-bottom: 2px;
+}
+
+/* ================= 11. Kartu fitur premium (locked / active) ================= */
+.premium-locked-card {
+    padding: 16px 18px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(250,204,21,0.05), rgba(168,85,247,0.05));
+    border: 1.5px dashed rgba(250, 204, 21, 0.4);
+    margin: 0.6rem 0;
+}
+.premium-locked-card .lock-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #facc15;
+    background: rgba(250, 204, 21, 0.12);
+    border: 1px solid rgba(250, 204, 21, 0.35);
+    padding: 2px 10px;
+    border-radius: 999px;
+    margin-bottom: 8px;
+}
+.premium-locked-card .locked-desc {
+    color: #d1d5db;
+    font-size: 0.85rem;
+}
+
+.premium-active-card {
+    padding: 16px 18px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(250,204,21,0.10), rgba(168,85,247,0.10));
+    border: 1.5px solid rgba(250, 204, 21, 0.55);
+    box-shadow: 0 0 20px rgba(250, 204, 21, 0.12);
+    margin: 0.6rem 0 1rem 0;
+}
+.premium-active-card .active-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #0b0d17;
+    background: linear-gradient(90deg, #facc15, #fde68a);
+    padding: 2px 10px;
+    border-radius: 999px;
+    margin-bottom: 8px;
+}
+
+/* ================= 12. Stepper modern ================= */
+.modern-stepper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 0.6rem 0 1.2rem 0;
+    position: relative;
+}
+.modern-stepper::before {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: 5%;
+    right: 5%;
+    height: 2px;
+    background: rgba(255,255,255,0.1);
+    z-index: 0;
+}
+.stepper-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    position: relative;
+    z-index: 1;
+}
+.stepper-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    border: 2px solid rgba(255,255,255,0.15);
+    background: #14172a;
+    color: #6b7280;
+}
+.stepper-circle.completed {
+    background: linear-gradient(135deg, #a855f7, #4dd8ff);
+    border-color: transparent;
+    color: white;
+    box-shadow: 0 0 12px rgba(168, 85, 247, 0.5);
+}
+.stepper-circle.active {
+    border-color: #4dd8ff;
+    color: #4dd8ff;
+    box-shadow: 0 0 10px rgba(77, 216, 255, 0.5);
+    animation: avatarPulse 2s infinite;
+}
+.stepper-label {
+    font-size: 0.68rem;
+    text-align: center;
+    color: #9ca3af;
+}
+.stepper-label.active-label {
+    color: #e5e7eb;
+    font-weight: 700;
+}
 </style>
 """
 
@@ -184,3 +384,93 @@ def render_page_transition():
         '<div class="curtain-left"></div><div class="curtain-right"></div>',
         unsafe_allow_html=True,
     )
+
+
+APP_VERSION = "v2.0"
+
+
+def render_profile_card(username: str, role: str = "Pengguna"):
+    """
+    Kartu profil sidebar: avatar bulat berisi inisial nama (bukan foto asli -- upload foto
+    profil sungguhan butuh fitur tambahan yang belum ada), nama, role, dan badge versi app.
+    """
+    initial = (username or "?").strip()[0].upper()
+    st.sidebar.markdown(
+        f"""
+        <div class="profile-card">
+            <div class="profile-avatar">{initial}</div>
+            <div class="profile-info">
+                <div class="profile-name">{username}</div>
+                <div class="profile-role">{role}</div>
+                <div class="version-badge">{APP_VERSION}</div>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+def render_premium_promo_card():
+    """Kartu promosi upsell ke premium di sidebar, ditampilkan untuk user yang belum premium."""
+    st.sidebar.markdown(
+        """
+        <div class="premium-promo-card">
+            <div class="promo-title">✨ Upgrade ke Premium</div>
+            <ul>
+                <li>Proyeksi tren 30 hari</li>
+                <li>Deteksi anomali otomatis</li>
+                <li>Export ke Excel</li>
+                <li>Google Sheets sync</li>
+                <li>Profil branding tanpa batas</li>
+                <li>Hapus watermark</li>
+            </ul>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+def render_premium_locked_card(description: str):
+    """Kartu elegan untuk fitur premium yang masih terkunci (dashed gold border)."""
+    st.markdown(
+        f"""
+        <div class="premium-locked-card">
+            <span class="lock-badge">🔒 Fitur Premium</span>
+            <div class="locked-desc">{description}</div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+def render_premium_active_header(title: str):
+    """Header elegan (gold solid border + glow) untuk section fitur premium yang sudah aktif."""
+    st.markdown(
+        f"""
+        <div class="premium-active-card">
+            <span class="active-badge">⭐ Premium Aktif</span>
+            <div style="font-weight:700; color:#f3f4f6; font-size:1.05rem; margin-top:4px;">{title}</div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+def render_modern_stepper(steps: list, current_index: int):
+    """Stepper horizontal modern (gradient circle, connecting line) sebagai pengganti versi teks polos."""
+    parts = ['<div class="modern-stepper">']
+    for i, label in enumerate(steps):
+        if i < current_index:
+            circle_class, content, label_class = "completed", "✓", ""
+        elif i == current_index:
+            circle_class, content, label_class = "active", str(i + 1), "active-label"
+        else:
+            circle_class, content, label_class = "", str(i + 1), ""
+        parts.append(
+            f'<div class="stepper-step">'
+            f'<div class="stepper-circle {circle_class}">{content}</div>'
+            f'<div class="stepper-label {label_class}">{label}</div>'
+            f'</div>'
+        )
+    parts.append('</div>')
+    st.markdown("".join(parts), unsafe_allow_html=True)
