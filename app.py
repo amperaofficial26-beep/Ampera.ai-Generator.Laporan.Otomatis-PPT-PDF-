@@ -27,7 +27,11 @@ from modules.auth_billing import (
     should_show_watermark, get_branding_profiles, save_branding_profile, delete_branding_profile,
     get_report_history, add_report_history,
 )
-from modules.theme import inject_custom_css, render_animated_title, render_sidebar_logo, render_export_quota_box, render_page_transition
+from modules.theme import (
+    inject_custom_css, render_animated_title, render_export_quota_box, render_page_transition,
+    render_profile_card, render_premium_promo_card, render_premium_locked_card,
+    render_premium_active_header, render_modern_stepper,
+)
 
 st.set_page_config(page_title="Generator Laporan Otomatis", page_icon="📊", layout="wide")
 inject_custom_css()
@@ -45,16 +49,19 @@ if USE_LOGIN:
 render_animated_title("📊 Generator Laporan Otomatis")
 st.caption("Upload data performa (atau sambungkan Google Sheets), lihat insight otomatis, atur branding, dan ekspor jadi PPT/PDF/Excel siap presentasi.")
 
-render_sidebar_logo("📊")
 if USE_LOGIN:
-    st.sidebar.success(f"Login sebagai: {st.session_state.get('username')}")
+    render_profile_card(st.session_state.get("username", "Pengguna"), role="Anggota Ampera.AI")
+else:
+    render_profile_card("Tamu", role="Mode tanpa login")
+
 render_export_quota_box(remaining_free_exports())
 if is_unlimited():
     st.sidebar.success("⭐ Status: Unlimited (sesi ini)")
 elif is_premium():
     st.sidebar.success("⭐ Status: Premium aktif (sesi ini)")
 else:
-    st.sidebar.caption("Status: Gratis — tukar kode akses untuk buka fitur premium")
+    st.sidebar.caption("Status: Gratis")
+    render_premium_promo_card()
 
 # Riwayat laporan (sidebar)
 history = get_report_history()
@@ -69,16 +76,7 @@ STEPS = ["Upload Data", "Pilih Kolom", "Branding", "Insight", "Export"]
 
 
 def render_stepper(current_index: int):
-    cols = st.columns(len(STEPS))
-    for i, (col, label) in enumerate(zip(cols, STEPS)):
-        with col:
-            if i < current_index:
-                col.markdown(f"✅ **{label}**")
-            elif i == current_index:
-                col.markdown(f"🔵 **{label}**")
-            else:
-                col.markdown(f"⚪ {label}")
-    st.progress((current_index) / (len(STEPS) - 1) if len(STEPS) > 1 else 0)
+    render_modern_stepper(STEPS, current_index)
 
 
 current_step = 0
@@ -125,10 +123,7 @@ else:  # Google Sheets
     if not is_premium():
         with render_stepper_placeholder.container():
             render_stepper(0)
-        st.warning(
-            "Koneksi Google Sheets adalah fitur premium. Tukar kode akses di bagian Export "
-            "untuk membukanya, atau pakai 'Upload File' dulu."
-        )
+        render_premium_locked_card("🔗 <b>Koneksi Google Sheets</b> — sambungkan data langsung dari spreadsheet tanpa upload manual. Tukar kode akses di bagian Export, atau pakai 'Upload File' dulu.")
         st.stop()
 
     sheet_url = st.text_input(
@@ -284,13 +279,14 @@ else:
     st.caption("Belum cukup data untuk menghasilkan insight otomatis (butuh kolom tanggal/kategori & data yang cukup).")
 
 # --- Deteksi Anomali (PREMIUM) ---
-st.subheader("🔍 Deteksi Anomali (Premium)")
 anomaly_insights = []
 if not is_premium():
-    st.caption("🔒 Terkunci. Tukar kode akses untuk mengaktifkan deteksi anomali otomatis.")
+    render_premium_locked_card("🔍 <b>Deteksi Anomali</b> — temukan titik data yang menyimpang tidak wajar secara otomatis. Tukar kode akses untuk membuka fitur ini.")
 elif date_col == "(tidak ada)":
+    st.subheader("🔍 Deteksi Anomali")
     st.caption("Pilih kolom tanggal untuk mengaktifkan deteksi anomali.")
 else:
+    render_premium_active_header("🔍 Deteksi Anomali")
     anomaly_insights = generate_anomaly_insights(df, date_col, metric_cols)
     if anomaly_insights:
         for text in anomaly_insights:
@@ -299,12 +295,13 @@ else:
         st.caption("Tidak ada anomali signifikan terdeteksi pada data ini.")
 
 # --- Proyeksi Tren (PREMIUM) ---
-st.subheader("📈 Proyeksi Tren 30 Hari (Premium)")
 if not is_premium():
-    st.caption("🔒 Terkunci. Tukar kode akses di bagian Export untuk membuka proyeksi tren.")
+    render_premium_locked_card("📈 <b>Proyeksi Tren 30 Hari</b> — lihat estimasi arah metrik ke depan berdasarkan tren historis. Tukar kode akses untuk membuka fitur ini.")
 elif date_col == "(tidak ada)":
+    st.subheader("📈 Proyeksi Tren 30 Hari")
     st.caption("Pilih kolom tanggal untuk mengaktifkan proyeksi tren.")
 else:
+    render_premium_active_header("📈 Proyeksi Tren 30 Hari")
     forecast_metric_choice = st.selectbox("Pilih metrik untuk diproyeksikan", options=metric_cols, key="forecast_metric")
     forecast_result = forecast_metric(df, date_col, forecast_metric_choice, forecast_days=30)
     if forecast_result is None:
